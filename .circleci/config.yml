@@ -6,9 +6,8 @@ default: &docker_anchor
         - image: cimg/node:18.4.0
 jobs:
     build:
-        <<: *docker_anchor 
+        <<: *docker_anchor
         steps:
-            - run: sudo apt-get install python3.8
             - checkout
             - run: yarn
             - save_cache:
