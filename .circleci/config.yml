@@ -3,11 +3,12 @@ version: 2.1
 
 default: &docker_anchor
     docker:
-        - image: cimg/node:15.0.1
+        - image: cimg/node:18.4.0
 jobs:
     build:
         <<: *docker_anchor 
         steps:
+            - run: sudo apt-get install python3.8
             - checkout
             - run: yarn
             - save_cache:
