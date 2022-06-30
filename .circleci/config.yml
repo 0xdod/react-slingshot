@@ -3,7 +3,7 @@ version: 2.1
 
 default: &docker_anchor
     docker:
-        - image: cimage/node:18.4.0
+        - image: cimg/node:18.4.0
 jobs:
     build:
         <<: *docker_anchor 
