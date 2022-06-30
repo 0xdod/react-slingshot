@@ -4,6 +4,7 @@ version: 2.1
 default: &docker_anchor
     docker:
         - image: cimg/node:15.0.1
+        - image: cimg/python:3.10.5
 jobs:
     build:
         <<: *docker_anchor 
