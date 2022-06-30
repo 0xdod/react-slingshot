@@ -1,0 +1,41 @@
+version: 2.1
+
+
+default: &docker_anchor
+    docker:
+        - image: cimage/node:2022.06
+jobs:
+    build:
+        <<: *docker_anchor 
+        steps:
+            - checkout
+            - run: npm i
+            - save_cache:
+                key: "node_modules"
+                paths:
+                    - ~/node_modules
+            - run: npm run lint
+    test:
+        <<: *docker_anchor
+        steps:
+            - checkout
+            - restore_cache:
+                key: "node_modules"
+            #- run: npm i
+            - run: npm run test
+    analyze:
+        <<: *docker_anchor
+        steps:
+            - checkout
+            - run: npm audit
+
+workflows:
+    my_workflow:
+        jobs:
+            - build
+            - test:
+                requires: [build]
+            - analyze:
+                requires:
+                    - test
+
