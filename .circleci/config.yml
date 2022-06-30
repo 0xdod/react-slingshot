@@ -4,18 +4,17 @@ version: 2.1
 default: &docker_anchor
     docker:
         - image: cimg/node:15.0.1
-        - image: cimg/python:3.10.5
 jobs:
     build:
         <<: *docker_anchor 
         steps:
             - checkout
-            - run: npm i
+            - run: yarn
             - save_cache:
                 key: "node_modules"
                 paths:
                     - ~/node_modules
-            - run: npm run lint
+            - run: yarn run lint
     test:
         <<: *docker_anchor
         steps:
@@ -23,7 +22,7 @@ jobs:
             - restore_cache:
                 key: "node_modules"
             #- run: npm i
-            - run: npm run test
+            - run: yarn run test
     analyze:
         <<: *docker_anchor
         steps:
